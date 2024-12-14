@@ -17,7 +17,7 @@ int ownersCount = 0;
 
 int main() {
     leerPets();
-    leerOwners("../bin/owners.csv"); // Ensure the correct path is used
+    leerOwners("../bin/owners.csv");
 
     int opcion;
     string petID, ownerID;
@@ -66,12 +66,21 @@ int main() {
                 break;
             case 8:
                 leerOwners("../bin/owners.csv");
+                for (int i = 0; i < ownersCount; ++i) {
+                    const owners &owner = ownersPtr[i];
+                    cout << owner.getIdOwner() << ", "
+                         << owner.getNombre() << ", "
+                         << owner.getApellido() << ", "
+                         << owner.getDireccion() << ", "
+                         << owner.getTelefono() << ", "
+                         << owner.getEmail() << endl;
+                }
                 break;
             case 9: {
                 int subOpcion;
                 cout << "Seleccione la consulta que desea realizar: " << endl
                      << "1. Consultar una Mascota" << endl
-                     << "2. Consultar un Dueño" << endl;
+                     << "2. Consultar un Owner" << endl;
                 cin >> subOpcion;
 
                 switch (subOpcion) {
@@ -95,9 +104,9 @@ int main() {
                         cout << "Ingrese el ID del owner: ";
                         cin >> ownerID;
                         for (int i = 0; i < ownersCount; ++i) {
-                            if (ownersPtr[i].getCedulaOwner() == stoi(ownerID)) {
+                            if (ownersPtr[i].getIdOwner() == ownerID) { 
                                 const owners &owner = ownersPtr[i];
-                                cout << owner.getCedulaOwner() << ", "
+                                cout << owner.getIdOwner() << ", " 
                                      << owner.getNombre() << ", "
                                      << owner.getApellido() << ", "
                                      << owner.getDireccion() << ", "

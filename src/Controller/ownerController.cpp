@@ -1,4 +1,4 @@
-#include"../Model/owners.h"
+#include"../Model/Owners.h"
 #include<fstream>
 #include<sstream>
 #include<string>
@@ -16,14 +16,14 @@ void leerOwners(const string &ownersFile) {
         cout << "No se pudo abrir el archivo " << ownersFile << endl;
         return;
     }
-    getline(archivoOwner, line); // Skip the header line
+    getline(archivoOwner, line);
     while (getline(archivoOwner, line)) {
         owners owner;
         stringstream ss(line);
         string tempStr;
 
         getline(ss, tempStr, ',');
-        owner.setCedulaOwner(stoi(tempStr)); // Convert string to int
+        owner.setIdOwner(tempStr); 
         getline(ss, tempStr, ',');
         owner.setNombre(tempStr);
         getline(ss, tempStr, ',');
@@ -49,28 +49,27 @@ void leerOwners(const string &ownersFile) {
 
 void guardarOwners(const string &ownersFile) {
     ofstream file("../bin/owners.csv");
-    file << "cedulaOwner,nombre,apellido,direccion,telefono,email\n";
+    file << "IdOwner,nombre,apellido,direccion,telefono,email\n"; 
     for (int i = 0; i < ownersCount; ++i) {
-        file << ownersPtr[i].getCedulaOwner() << ","
+        file << ownersPtr[i].getIdOwner() << ","
              << ownersPtr[i].getNombre() << ","
              << ownersPtr[i].getApellido() << ","
              << ownersPtr[i].getDireccion() << ","
              << ownersPtr[i].getTelefono() << ","
-             << ownersPtr[i].getEmail() << "\n";
+             << ownersPtr[i].getEmail() << endl;
     }
     file.close();
 }
 
-void actualizarOwners(const string &cedula) {
+void actualizarOwners(const string &IdOwner) {
     for (int i = 0; i < ownersCount; ++i) {
-        if (ownersPtr[i].getCedulaOwner() == stoi(cedula)) { // Convert string to int
+        if (ownersPtr[i].getIdOwner() == IdOwner) { 
             owners original = ownersPtr[i];
             owners &owner = ownersPtr[i];
             cout << "Ingrese nuevos datos (nombre, apellido, direccion, telefono, email): " << endl;
             string nombre, apellido, direccion, telefono, email;
-            cin >> nombre >> apellido >> direccion >> telefono;
-            cin.ignore(); // Ignore the newline character left in the buffer
-            getline(cin, email); // Use getline to read the email
+            cin >> nombre >> apellido >> direccion >> telefono >> email;
+            getline(cin, email); 
             owner.setNombre(nombre);
             owner.setApellido(apellido);
             owner.setDireccion(direccion);
@@ -95,10 +94,11 @@ void actualizarOwners(const string &cedula) {
 
 void insertarOwners() {
     owners owner;
-    cout << "Ingrese datos del owner (cedulaOwner, nombre, apellido, direccion, telefono, email): " << endl;
-    string cedulaOwner, nombre, apellido, direccion, telefono, email;
-    cin >> cedulaOwner >> nombre >> apellido >> direccion >> telefono >> email;
-    owner.setCedulaOwner(stoi(cedulaOwner)); // Convert string to int
+    cout << "Ingrese datos del owner (IdOwner, nombre, apellido, direccion, telefono, email): " << endl; 
+    string IdOwner, nombre, apellido, direccion, telefono, email;
+    cin >> IdOwner >> nombre >> apellido >> direccion >> telefono >> email;
+    getline(cin, email);
+    owner.setIdOwner(IdOwner);
     owner.setNombre(nombre);
     owner.setApellido(apellido);
     owner.setDireccion(direccion);
@@ -124,10 +124,10 @@ void insertarOwners() {
     }
 }
 
-void borrarOwners(const string &cedula) {
+void borrarOwners(const string &IdOwner) {
     for (int i = 0; i < ownersCount; ++i) {
-        if (ownersPtr[i].getCedulaOwner() == stoi(cedula)) { // Convert string to int
-            cout << "Esta seguro de que desea eliminar el owner con cedula " << cedula << "? (s/n): ";
+        if (ownersPtr[i].getIdOwner() == IdOwner) { 
+            cout << "Esta seguro de que desea eliminar el owner con IdOwner " << IdOwner << "? (s/n): ";
             char confirmacion;
             cin >> confirmacion;
             if (confirmacion == 's' || confirmacion == 'S') {

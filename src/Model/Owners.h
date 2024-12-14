@@ -6,7 +6,7 @@ using namespace std;
 
 class owners {
     private:
-        int cedulaOwner;
+        string IdOwner;
         string nombre;
         string apellido;
         string direccion;
@@ -14,14 +14,14 @@ class owners {
         string email;
 
     public:
-        int getCedulaOwner() const;
+        string getIdOwner() const;
         string getNombre() const;
         string getApellido() const;
         string getDireccion() const;
         string getTelefono() const;
         string getEmail() const;
 
-        void setCedulaOwner(const int &cedulaOwner);
+        void setIdOwner(const string &IdOwner);
         void setNombre(const string &nombre);
         void setApellido(const string &apellido);
         void setDireccion(const string &direccion);
